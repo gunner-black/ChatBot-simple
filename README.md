@@ -27,3 +27,8 @@ Este projeto serve como uma base sólida e pode ser aprimorado com diversas func
 
 # Lógica e Abertura para Implementações
 A lógica do projeto utiliza dicionários para armazenar e organizar informações, como as diferentes personalidades e a base de conhecimento. Laços de repetição `while` mantêm o fluxo de conversa, e estruturas condicionais `if`/`elif`/`else` são usadas para tomar decisões com base nas entradas do usuário. A modularidade do código permite que novas funcionalidades sejam adicionadas sem comprometer a estrutura existente, abrindo espaço para futuras implementações, como um sistema de aprendizado mais avançado ou uma interface gráfica.
+
+## Desenvolvedores
+Este projeto foi desenvolvido em colaboração por:
+* [Kauã Sales]()
+* []()
