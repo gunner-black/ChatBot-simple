@@ -1,217 +1,191 @@
-conversation = {                # conversation data dictionary
-    'user': '',                 # section user
-    'topic': None,              # section topic     - initially whithout subject
-    'personality': 'formal'     # personality section
-}
+# files
+know_files = 'know.txt'
+stats_file = 'stats.txt'
+report_file = 'report.txt'
 
-personalities = {               # personality dictionary (personality: common texts + theme texts)
-    
-    # 'personality':
-    #   'greeting': 'text'      - saudation
-    #   'welcome': 'text'       - welcome user (necessarily a key -> '{}')
-    #   'farewell': 'text'      - goodbye user
-    #   'default': 'text'       - stardant mensage
-    #
-    # # subject text
-    # 'subjects': 'written about the subjects'
-    # (...)
-    
-    'formal': {                 # formal personality 
+know = {
+    'ola': 'Olá! Em que posso ajudar?',
+    'qual o seu nome': 'Meu nome é ChatBot',
+    'quem ganhou a ultima copa': 'A última copa do mundo da FIFA, foi vencida pela Argentina.',
+    'o que é var': 'var é uma tecnologia que permmite os árbitros de campo revisarem lances.',
+    'quem é o melhor artilheiro da historia': 'O jogador com mais gols reconhecidos em partidas oficias é Cristiano Ronaldo, com mais de 800 gols na carreira.',
+    'qual o melhor time': 'O vasco é o melhor time.',
+    'qual o jogo mais emocionante': 'Concerteza a final de 2022, entre Argentina e França.',
+    'tema': 'Futebol'
+}
+stats = {
+    'interaction_total': 0,
+    'learn': 0,
+    'formal_keyword': 0,
+    'pushy_keyword': 0,
+    'cearense_keyword': 0
+}
+personalities = {
+    'formal': {
         'greeting': "Olá",
-        'welcome': "{} é um prazer te conhecer. Em que posso te ajudar?",
+        'welcome': "É um prazer te conhecer. Em que posso te ajudar?",
         'farewell': "{} foi um prazer te ajudar. Tenha um ótimo dia.",
         'default': "Não compreendi sua solicitação.",
-
-        # subject text
-        'subject 1': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. ",
-        'subject 2': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. ",
-        'subject 3': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. "
+        'prefix': "Em relação ao seu pedido, temos que: ",
+        'suffix': "Espero que essa explicação tenha sido útil."
     },
-    
-    'pushy': {                  # pushy personality
+    'pushy': {
         'greeting': "E aí o'que você quer?",
         'welcome': "Olha {}, por que você está me encomodando?",
         'farewell': "Vaza daqui. Esquece que eu existo.",
         'default': "Escreve direito, analfabeto.",
-
-        # subject text
-        'subject 1': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. ",
-        'subject 2': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. ",
-        'subject 3': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. "
+        'prefix': "Escuta aqui, a reposta é essa, não tem segredo: ",
+        'suffix': "Agora que já sabe, pode me deixar em paz?"
     },
-    
-    'carioca': {                # carioca personality
-        'greeting': "Coé, meu mano? Tranquilo?",
-        'welcome': "Pega a visão, {}. Qual a boa?",
-        'farewell': "É nós, fica com deus, falou.",
-        'default': "Papo reto, não entendi nada. Desenrola.",
-
-        # subject text
-        'subject 1': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. ",
-        'subject 2': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. ",
-        'subject 3': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. "
-    },
-    
-    'bahiano': {                # baiano personality
-        'greeting': "E aí, meu rei? Tudo na paz?",
-        'welcome': "Bicho, que bom te ver.",
-        'farewell': "Se pique meu nego.",
-        'default': "Situação barril meu nego. Mas vem cá, largue o doce.",
-
-        # subject text
-        'subject 1': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. ",
-        'subject 2': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. ",
-        'subject 3': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. "
-    },
-    
-    'cearense': {               # cearense personality
+    'cearense': {
         'greeting': "Cuida pai, tudo bem hoje?",
         'welcome': "Bem-vindo {} a baixa da égua. Em que posso te ajudar?",
-        'farewell': "",
-        'default': "",
+        'farewell': "{} vá pela sombra.",
+        'default': "Eita, o que é isso, fi? Não entendi.",
 
         # subject text
-        'subject 1': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. ",
-        'subject 2': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. ",
-        'subject 3': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt tincidunt est, sit amet luctus ex mattis eget. Donec nunc velit, ullamcorper eget consectetur sed, ornare eget arcu. Curabitur posuere eros et odio interdum ultrices. Aenean egestas pharetra neque, sit amet venenatis magna eleifend vel. Mauris convallis hendrerit diam, in placerat dolor imperdiet at. In vel massa ex. Fusce sit amet metus suscipit, rutrum enim nec, ullamcorper augue. Morbi et leo non lorem molestie lobortis. Phasellus dapibus dui ac facilisis vestibulum. Nullam diam dui, pretium vel rhoncus in, egestas eget sem. Nulla condimentum volutpat arcu ut pharetra. Maecenas cursus tristique faucibus. "
+        'prefix': "Vixe, pois tome aqui meu fi: ",
+        'suffix': "Pronto, tá aí cumpadi."
     }
 }
 
+exit_keyword = ['sair', 'fechar', 'adeus', 'tchau']
+continuation_keyword = ['mais', 'continue', 'detalhes']
+formal_keyword = ['formal']
+pushy_keyword = ['idiota', 'agressivo', 'animal']
+cearense_keyword = ['oxe', 'cuida']
 
-# list of keywords
-formal_keyword = ['']       # formal keywords
-pushy_keyword = ['']        # pushy keywords
-carioca_keyword = ['']      # carioca keywords
-baiano_keyword = ['']       # baiano keywords
-cearense_keyword = ['']     # cearense keywords
+def load(file_path, default_data):
+    data = {}
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                clean = line.strip()
+                if clean:
+                    parts = clean.split('|', 1)
+                    if len(parts) == 2:
+                        key = parts[0].strip()
+                        value_str = parts[1].strip()
+                        if file_path == stats_file:
+                            try:
+                                data[key] = int(value_str)
+                            except ValueError:
+                                data[key] = value_str
+                        else:
+                            data[key] = value_str
+            if not data:
+                return default_data
+            return data
+    except FileNotFoundError:
+        return default_data
+    except Exception as e:
+        print(f'Falha inesperada ao carregar {file_path}')
+        return default_data
 
-# chat knowledge base
-know = {
-    'qual seu nome': 'Me chamo de',
+def save(data, file_path):
+    try:
+        with open(file_path, 'w', encoding='utf-8') as f:
+            for key, value in data.items():
+                f.write(f'{key}|{value}\n')
+    except Exception as e:
+        print(f'Falha ao salvar o arquivo {file_path}: {e}')
 
-    # knowledge of subjects
-    # 'subject': 'text'
-    #   'subject branch': 'text'
+def report(stats, user, interaction_count):
+    content = f"-- Relátorio --\n"
+    content += f"Usuário: {user}\n"
+    content += f"Interações nessa seção: {interaction_count}\n"
+    content += f"Interações totais: {stats.get('interaction_total')}\n"
 
-    'assunto 1': 'assunto',
-        'assunto 1 branch': '',
+    for key, value in stats.items():
+        if key not in ['interaction_total', 'learn', 'formal_keyword', 'pushy_keyword', 'cearense_keyword']:
+            content += f'Uso de [{key}]: {value} \n'
 
-    'assunto 2': 'assunto',
-        'assunto 2 branch': '',
+    content += f"Forma ativado: {stats.get('formal_keyword', 0)}\n"
+    content += f"Agressivo ativado: {stats.get('pushy_keyword', 0)}\n"
+    content += f"Cearense ativado: {stats.get('cearense_keyword', 0)}\n"
+    content += f"Respostas aprendidas: {stats.get('learn', 0)}\n"
 
-    'assunto 3': 'assunto',
-        'assunto 3 branch': ''
-}
+    try:
+        with open(report_file, 'w', encoding='utf-8') as file:
+            file.write(content)
+        print('Relatório salvo com sucesso')
+    except Exception as e:
+        print('Falha ao salvar relatório')
+    print(content)
+
+def run():
+    global insight, stay
+    insight = load(know_files, know)
+    stay = load(stats_file, stats)
+
+    conversation = {'user': '', 'topic': None, 'personality': 'formal'}
+    session_interactions = 0
+    personality = conversation['personality']
+    print(personalities[personality]['welcome'].format(conversation['user']))
+    name = str(input('Nome: '))
+    conversation['user'] = name
+    print(personalities[personality]['welcome'].format(conversation['user']))
+
+    while True:
+        send = str(input("Mensagem: ")).strip().lower()
+        session_interactions += 1
+        stats['interaction_total'] += 1
+        handled = False
+
+        # end the chat
+        if any(word in send for word in exit_keyword):
+            print(personalities[conversation['personality']]['farewell'].format(conversation['user']))
+            save(know, know_files)
+            save(stats, stats_file)
+            report(stats, conversation['user'], session_interactions)
+            break
+
+        # personalities
+        if any(word in send for word in formal_keyword) and conversation['personality'] != 'formal':
+            conversation['personality'] = 'formal'
+            stay['formal_keyword'] += 1
+            handled = True
+        elif any(word in send for word in pushy_keyword) and conversation['personality'] != 'pushy':
+            conversation['personality'] = 'pushy'
+            stay['pushy_keyword'] += 1
+            handled = True
+        elif any(word in send for word in cearense_keyword) and conversation['personality'] != 'cearense':
+            conversation['personality'] = 'cearense'
+            stay['cearense_keyword'] += 1
+            handled = True
+
+        personality = conversation['personality']
+        if any(word in send for word in continuation_keyword) and not handled:
+            topic = conversation['topic']
+            neutral = know.get(topic, None)
+            if neutral and topic:
+                prefix = personalities[personality]['prefix']
+                suffix = personalities[personality]['suffix']
+                print(f'{prefix}{neutral}. {suffix}')
+            else:
+                print(personalities[personality]['default'])
+                handled = True
+
+        # machine learning
+        if send in know and not handled:
+            print(know[send])
+            stay[send] = stay.get(send, 0) + 1
+            conversation['topic'] = send
+            handled = True
+        if not handled:
+            print(personalities[personality]['default'])
+            learn = input('Qual a resposta?')
+            if learn.lower() != 'nao':
+                know[send] = learn
+                print('Entendido.')
+
+                stay[send] = 1
+                stay['learn'] = stay.get('learn', 0) + 1
+                conversation['topic'] = send
+
+                save(know, know_files)
 
 
-# history of demonstrations
-stats = {
-    # data 1: x,
-    # data 2: x
-
-    # default messages data
-    'send': 0,
-    'qual o seu nome': 0,
-
-    # subjects data
-    'assunto 1': 0,
-    'assunto 2': 0,
-    'assunto 3': 0,
-
-    # keywords data
-    'formal_keyword': 0,
-    'pushy_keyword': 0,
-    'carioca_keyword': 0,
-    'baiano_keyword': 0,
-    'cearense_keyword': 0
-}
-interaction_count = 0               # chat interaction count
-
-
-# chat inicialization
-print(personalities[conversation['personality']]['greeting'])   # salute    - remove the salute from the active personality
-
-name = str(input('Name: '))                # name request
-conversation['user'] = name
-print(personalities[conversation['personality']]['welcome'].format(conversation['user']))   # welcome   - welcome to the user
-
-
-while True:
-    # send message
-    send = str(input('Mensagem: '))
-    interaction_count += 1              # note the number of interactios during the chat
-    
-    # personality detection
-    personality_chagend = False
-    # se any word sent belongs to one of the keys mentioned, do:
-    # pt-br: se em qualquer palavra enviada, pertencer a uma das chaves dita, faça:
-    if any(word in send for word in formal_keyword):        # personality formal
-        conversation['personality'] = 'formal'
-        stats['formal_keyword'] += 1
-        personality_chagend = True
-
-    elif any(word in send for word in pushy_keyword):       # personality pushy
-        conversation['personality'] = 'pushy'
-        stats['pushy_keyword'] += 1
-        personality_chagend = True
-
-    elif any(word in send for word in carioca_keyword):     # personality carioca
-        conversation['personality'] = 'carioca'
-        stats['carioca_keyword'] += 1
-        personality_chagend = True
-
-    elif any(word in send for word in baiano_keyword):      # personality baiano
-        conversation['personality'] = 'baiano'
-        stats['baiano_keyword'] += 1
-        personality_chagend = True
-
-    elif any(word in send for word in cearense_keyword):    # personality cearense
-        conversation['personality'] = 'cearense'
-        stats['cearense_keyword'] += 1
-        personality_chagend = True
-
-    # close the chat
-    if ('exit' or 'to go out' or 'get out') in send.lower():
-        print(personalities[conversation['personality']]['farewell'].format(conversation['user']))
-        # here structure to pull data
-        break
-
-    # continuation of the conversation
-    elif 'mais' in send.lower() and conversation['topic']:
-        if conversation['topic'] == 'assunto 1':
-            print(personalities[conversation['personality']]['default'].replace('', 'Sobre assunto 1, o que mais você quer saber?'))
-            if 'assunt 1 branch' in send.lower():
-                print('')
-
-        elif conversation['topic'] == 'assunto 2':
-            print(personalities[conversation['personality']]['default'].replace('', 'Sobre assunto 2,  o que mais você quer saber?'))
-            if 'assunt 1 branch' in send.lower():
-                print('')
-
-        elif conversation['topic'] == 'assunto 3':
-            print(personalities[conversation['personality']]['default'].replace('', 'Sobre assunto 3,  o que mais você quer saber?'))
-            if 'assunt 1 branch' in send.lower():
-                print('')
-
-        else:
-            print('Não entendi sobre o que você quer saber mais.')
-    
-    # machine learning
-    elif send in know:
-        print('')
-        if send in stats:
-            stats[send] += 1                    # note the number of submissions
-        conversation['topic'] = send.lower()    # update the topic according to the user
-    
-    else:
-        print(personalities[conversation['personality']]['default'])                # receives theme from user
-        learn_question = input('Me diga a resposta (ou "não" para pular): ')        # receives response from the user
-
-        # if the user don't want to
-        if learn_question.lower() != 'não':
-            know[send.lower()] = learn_question
-            print('Entendido')
-
-            # add the statistics
-            stats[send.lower()] = 1
-            conversation['topic'] = send.lower()
+# program initialization
+if __name__ == '__main__':
+    run()
