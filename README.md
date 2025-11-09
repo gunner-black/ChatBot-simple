@@ -30,5 +30,5 @@ A lógica do projeto utiliza dicionários para armazenar e organizar informaçõ
 
 ## Desenvolvedores
 Este projeto foi desenvolvido em colaboração por:
-* [Kauã Sales]()
+* [gunner-black]()
 * []()
